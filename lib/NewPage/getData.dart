@@ -43,7 +43,7 @@ class _SecondPageState extends State<SecondPage> {
         "https://microtechbackend.onrender.com/get_all_stage_completions/";
     final uri = await http.get(Uri.parse(url));
     final data = jsonDecode(uri.body) as List<dynamic>;
-    final result = data as List<dynamic>;
+    final result = data;
     final transformed = result.map((e) => getData.fromJson(e)).toList();
     setState(() {
       users = transformed;
