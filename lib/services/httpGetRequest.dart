@@ -1,13 +1,18 @@
-import 'dart:async';
+class getData {
+  String? serialNumber;
+  bool? qr1_completed;
+  String? qr1_completed_time;
 
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+  getData({
+    this.serialNumber,
+    this.qr1_completed,
+    this.qr1_completed_time,
+  });
 
-import 'package:project_two/services/httpModel.dart';
-
-String uri = "https://microtechbackend.onrender.com/get_all_stage_completions/";
-Future fetchData() async {
-  final response = await http.get(Uri.parse(uri));
-  final data = jsonDecode(response.body);
-  return data;
+  factory getData.fromJson(Map<String, dynamic> json) {
+    return getData(
+        serialNumber: json['serial_number'],
+        qr1_completed: json['qr1_completed'],
+        qr1_completed_time: json['qr1_completed_time']);
+  }
 }

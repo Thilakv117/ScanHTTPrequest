@@ -26,15 +26,5 @@ class Project {
     qr3CompletedTime = json['qr3_completed_time'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['serial_number'] = this.serialNumber;
-    data['qr1_completed'] = this.qr1Completed;
-    data['qr1_completed_time'] = this.qr1CompletedTime;
-    data['qr2_completed'] = this.qr2Completed;
-    data['qr2_completed_time'] = this.qr2CompletedTime;
-    data['qr3_completed'] = this.qr3Completed;
-    data['qr3_completed_time'] = this.qr3CompletedTime;
-    return data;
-  }
+  
 }

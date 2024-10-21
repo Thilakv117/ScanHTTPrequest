@@ -1,5 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:project_two/MainPage.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -7,7 +8,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 HomePage page = new HomePage();
 
 class ScanPage extends StatefulWidget {
-  const ScanPage({super.key});
+  ScanPage({super.key});
 
   @override
   State<ScanPage> createState() => _ScanPageState();
@@ -24,13 +25,13 @@ class _ScanPageState extends State<ScanPage> {
       setState(() {
         qrCodeValue = ScanData.code;
         controller.pauseCamera();
+        print(qrCodeValue.runtimeType);
       });
     });
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     controller?.dispose();
     super.dispose();
   }
@@ -59,8 +60,22 @@ class _ScanPageState extends State<ScanPage> {
           Expanded(
             child: Text('${qrCodeValue}'),
           ),
+          ElevatedButton(
+            onPressed: () {
+              submitData();
+            },
+            child: Text("Submit"),
+          ),
         ],
       ),
     );
+  }
+
+  submitData() async {
+    const url = "https://microtechbackend.onrender.com/update_stage/";
+    final uri = Uri.parse(url);
+    final body = qrCodeValue;
+    final response = await http.post(uri, body: body);
+    print(json.decode(response.body));
   }
 }
